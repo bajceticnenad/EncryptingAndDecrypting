@@ -8,14 +8,16 @@
     <Description>Nuget (C# library) for Encrypting and Decrypting based on AES. RSA, DES encryption</Description>
     <Copyright>DotNET Code Čačak</Copyright>
     <PackageTags>AES. RSA, DES, Encryption, Encrypt, Decrypt</PackageTags>
-    <PackageProjectUrl>https://dev.azure.com/nenadbajcetic/EncryptingAndDecrypting</PackageProjectUrl>
-    <RepositoryUrl>https://dev.azure.com/nenadbajcetic/EncryptingAndDecrypting</RepositoryUrl>
-    <Version>1.2.0</Version>
-    <PackageReleaseNotes>v1.2.0
-Added optional passing encryption key
+    <PackageProjectUrl>https://github.com/bajceticnenad/EncryptingAndDecrypting</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bajceticnenad/EncryptingAndDecrypting</RepositoryUrl>
+    <Version>1.2.2</Version>
+    <PackageReleaseNotes>v1.2.2
+Add GitHub repository
 v1.2.0
 Downgrade to .NETStandard 2.0
 Encryption key is required now
+v1.1.0
+Added optional passing encryption key
 v1.0.2
 Added Relases notes for all versions.
 Refactoring...
@@ -27,8 +29,8 @@ Version has BUG. That is correct in v1.0.1.
 
 If you have any questions, comments, or run into any problems, don't hesitate to send me an e-mail at
 nenadbajcetic@hotmail.com</PackageReleaseNotes>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <FileVersion>1.2.2.0</FileVersion>
   </PropertyGroup>
 
 </Project>
