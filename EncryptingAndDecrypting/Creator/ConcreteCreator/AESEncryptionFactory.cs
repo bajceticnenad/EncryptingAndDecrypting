@@ -8,7 +8,7 @@ using System.Text;
 namespace EncryptingAndDecrypting.Creator.ConcreteCreator
 {
     /// <summary>  
-    /// A 'ConcreteCreator' class  
+    /// AESEncryptionFactory 'ConcreteCreator' class  
     /// </summary>  
     class AESEncryptionFactory : EncryptionFactory
     {

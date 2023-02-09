@@ -38,6 +38,9 @@ namespace EncryptingAndDecrypting
                 case EncryptionType.AES:
                     result = new AESEncryptionFactory().GetEncryptionProduct().Encrypt(text, key);
                     break;
+                case EncryptionType.DES:
+                    result = new DESEncryptionFactory().GetEncryptionProduct().Encrypt(text, key);
+                    break;
 
                 default:
                     break;
@@ -52,6 +55,9 @@ namespace EncryptingAndDecrypting
             {
                 case EncryptionType.AES:
                     result = new AESEncryptionFactory().GetEncryptionProduct().Decrypt(text, key);
+                    break;
+                case EncryptionType.DES:
+                    result = new DESEncryptionFactory().GetEncryptionProduct().Decrypt(text, key);
                     break;
 
                 default:
