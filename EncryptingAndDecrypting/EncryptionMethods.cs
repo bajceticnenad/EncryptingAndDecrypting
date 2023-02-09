@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using EncryptingAndDecrypting.Encription;
+using EncryptingAndDecrypting.Creator.ConcreteCreator;
+using EncryptingAndDecrypting.Enums;
+using EncryptingAndDecrypting.Product;
 
 namespace EncryptingAndDecrypting
 {
@@ -28,13 +30,35 @@ namespace EncryptingAndDecrypting
             }
         }
 
-        public string AES_Encrypt(string text, string key)
+        public string Encrypt(EncryptionType encryptionType, string text, string key)
         {
-            return AESEncryption.Encrypt(text, key);
+            string result = null;
+            switch (encryptionType)
+            {
+                case EncryptionType.AES:
+                    result = new AESEncryptionFactory().GetEncryptionProduct().Encrypt(text, key);
+                    break;
+
+                default:
+                    break;
+            }
+
+            return result;
         }
-        public string AES_Decrypt(string text, string key)
+        public string Decrypt(EncryptionType encryptionType, string text, string key)
         {
-            return AESEncryption.Decrypt(text, key);
+            string result = null;
+            switch (encryptionType)
+            {
+                case EncryptionType.AES:
+                    result = new AESEncryptionFactory().GetEncryptionProduct().Decrypt(text, key);
+                    break;
+
+                default:
+                    break;
+            }
+
+            return result;
         }
     }
 }

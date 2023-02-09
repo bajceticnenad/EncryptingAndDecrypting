@@ -1,14 +1,38 @@
-﻿using System;
+﻿using EncryptingAndDecrypting.Enums;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
-namespace EncryptingAndDecrypting
+namespace EncryptingAndDecrypting.Product.ConcreteProducts
 {
-    internal class AESEncryption
+    /// <summary>  
+    /// AES Encryption 'ConcreteProduct' class  
+    /// </summary> 
+    class AESEncryptionProduct : EncryptionProduct
     {
-        public static string Encrypt(string clearText, string key)
+        #region "PrivateFields"
+        private readonly EncryptionType _encryptionType;
+        #endregion "PrivateFields"
+
+        #region "PublicConstructor"
+        public AESEncryptionProduct()
+        {
+            _encryptionType = EncryptionType.AES;
+        }
+        #endregion "PublicConstructor"
+
+        #region "PublicProperties"
+        public override EncryptionType EncryptionType     
+        {
+            get { return _encryptionType; }
+        }
+
+        #endregion "PublicProperties"
+
+        #region "PublicMethods"
+        public override string Encrypt(string clearText, string key)
         {
             try
             {
@@ -40,10 +64,10 @@ namespace EncryptingAndDecrypting
                 throw ex;
             }
         }
-        public static string Decrypt(string cipherText, string key)
+        public override string Decrypt(string cipherText, string key)
         {
             try
-            { 
+            {
                 if (string.IsNullOrEmpty(key))
                 {
                     throw new Exception($"Encryption key is empty!");
@@ -72,6 +96,7 @@ namespace EncryptingAndDecrypting
                 throw ex;
             }
         }
+        #endregion "PublicMethods"
 
     }
 }
