@@ -64,8 +64,10 @@ namespace EncryptingAndDecrypting
                     //break;
                 case EncryptionType.DES:
                     return new DESEncryptionFactory().GetEncryptionProduct();
-                    //break;
-
+                //break;
+                case EncryptionType.RSA:
+                    return new RSAEncryptionFactory().GetEncryptionProduct();
+                //break;
                 default:
                     return null;
                     //break;

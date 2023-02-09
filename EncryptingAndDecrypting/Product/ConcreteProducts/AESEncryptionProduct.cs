@@ -32,7 +32,7 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
         #endregion "PublicProperties"
 
         #region "PublicMethods"
-        public override string Encrypt(string clearText, string key)
+        public override string Encrypt(string text, string key)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 {
                     throw new Exception($"Encryption key is empty!");
                 }
-                byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+                byte[] clearBytes = Encoding.Unicode.GetBytes(text);
                 using (Aes encryptor = Aes.Create())
                 {
                     Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(key, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
@@ -53,10 +53,10 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                             cs.Write(clearBytes, 0, clearBytes.Length);
                             cs.Close();
                         }
-                        clearText = Convert.ToBase64String(ms.ToArray());
+                        text = Convert.ToBase64String(ms.ToArray());
                     }
                 }
-                return clearText;
+                return text;
 
             }
             catch (Exception)
@@ -64,7 +64,7 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 throw;
             }
         }
-        public override string Decrypt(string cipherText, string key)
+        public override string Decrypt(string text, string key)
         {
             try
             {
@@ -72,8 +72,8 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 {
                     throw new Exception($"Encryption key is empty!");
                 }
-                cipherText = cipherText.Replace(" ", "+");
-                byte[] cipherBytes = Convert.FromBase64String(cipherText);
+                text = text.Replace(" ", "+");
+                byte[] cipherBytes = Convert.FromBase64String(text);
                 using (Aes encryptor = Aes.Create())
                 {
                     Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(key, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
@@ -86,10 +86,10 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                             cs.Write(cipherBytes, 0, cipherBytes.Length);
                             cs.Close();
                         }
-                        cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                        text = Encoding.Unicode.GetString(ms.ToArray());
                     }
                 }
-                return cipherText;
+                return text;
             }
             catch (Exception)
             {
