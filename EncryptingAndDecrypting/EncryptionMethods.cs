@@ -4,6 +4,7 @@ using System.Text;
 using EncryptingAndDecrypting.Creator.ConcreteCreator;
 using EncryptingAndDecrypting.Enums;
 using EncryptingAndDecrypting.Product;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EncryptingAndDecrypting
 {
@@ -32,39 +33,44 @@ namespace EncryptingAndDecrypting
 
         public string Encrypt(EncryptionType encryptionType, string text, string key)
         {
-            string result = null;
-            switch (encryptionType)
+            try
             {
-                case EncryptionType.AES:
-                    result = new AESEncryptionFactory().GetEncryptionProduct().Encrypt(text, key);
-                    break;
-                case EncryptionType.DES:
-                    result = new DESEncryptionFactory().GetEncryptionProduct().Encrypt(text, key);
-                    break;
-
-                default:
-                    break;
+                return GetConcreteProduct(encryptionType).Encrypt(text, key);
             }
-
-            return result;
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public string Decrypt(EncryptionType encryptionType, string text, string key)
+        {       
+            try
+            {
+                return GetConcreteProduct(encryptionType).Decrypt(text, key);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #region "PrivateMethods"
+        private EncryptionProduct GetConcreteProduct(EncryptionType encryptionType)
         {
-            string result = null;
             switch (encryptionType)
             {
                 case EncryptionType.AES:
-                    result = new AESEncryptionFactory().GetEncryptionProduct().Decrypt(text, key);
-                    break;
+                    return new AESEncryptionFactory().GetEncryptionProduct();
+                    //break;
                 case EncryptionType.DES:
-                    result = new DESEncryptionFactory().GetEncryptionProduct().Decrypt(text, key);
-                    break;
+                    return new DESEncryptionFactory().GetEncryptionProduct();
+                    //break;
 
                 default:
-                    break;
+                    return null;
+                    //break;
             }
-
-            return result;
         }
+        #endregion "PrivateMethods"
     }
 }

@@ -59,9 +59,9 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 return clearText;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public override string Decrypt(string cipherText, string key)
@@ -91,9 +91,9 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 }
                 return cipherText;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         #endregion "PublicMethods"

@@ -54,9 +54,9 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
 
                 return Convert.ToBase64String(Objmst.ToArray());//encrypted string  
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public override string Decrypt(string cipherText, string key)
@@ -79,9 +79,9 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 Encoding encoding = Encoding.UTF8;
                 return encoding.GetString(Objmst.ToArray());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         #endregion "PublicMethods"
