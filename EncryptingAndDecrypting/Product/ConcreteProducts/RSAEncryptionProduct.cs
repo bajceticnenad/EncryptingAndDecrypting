@@ -15,12 +15,18 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
     {
         #region "PrivateFields"
         private readonly EncryptionType _encryptionType;
+
+        private RSAParameters _publicKey;
+        private RSAParameters _privateKey;
         #endregion "PrivateFields"
 
         #region "PublicConstructor"
         public RSAEncryptionProduct()
         {
             _encryptionType = EncryptionType.RSA;
+            var cryptoServiceProvider = new RSACryptoServiceProvider(2048); //2048 - Długość klucza
+            _publicKey = cryptoServiceProvider.ExportParameters(false); //Generowanie klucza publiczny
+            _privateKey = cryptoServiceProvider.ExportParameters(true); //Generowanie klucza prywatnego
         }
         #endregion "PublicConstructor"
 
@@ -35,17 +41,17 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
         #region "PublicMethods"
         public override string Encrypt(string text, string key)
         {
-            var data = Encoding.UTF8.GetBytes(text);
+            var data = Convert.FromBase64String(text);
+            string publicKeyString = GetKeyString(_publicKey);
 
             using (var rsa = new RSACryptoServiceProvider(2048))
             {
                 try
                 {
-                    // client encrypting data with public key issued by server
-                    //rsa.FromXmlString(key);
-                    rsa.FromXmlString("<RSAKeyValue><Modulus>12345</Modulus><Exponent>6789</Exponent></RSAKeyValue>"); // xml formatted publickey);
-                    var encryptedData = rsa.Encrypt(data, true);
-                    return Convert.ToBase64String(encryptedData);
+                    rsa.FromXmlString(publicKeyString.ToString());
+                    var encryptedData = rsa.Encrypt(data, false);
+                    var base64Encrypted = Convert.ToBase64String(encryptedData);
+                    return base64Encrypted;
                 }
                 catch (Exception)
                 {
@@ -53,25 +59,24 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 }
                 finally
                 {
-                    rsa.PersistKeyInCsp = false;
+                    //rsa.PersistKeyInCsp = false;
                 }
             }
         }
         public override string Decrypt(string text, string key)
         {
-            var data = Encoding.UTF8.GetBytes(text);
+            var data = Convert.FromBase64String(text);
+            var privateKeyString = GetKeyString(_privateKey);
 
             using (var rsa = new RSACryptoServiceProvider(2048))
             {
                 try
                 {
-                    var base64Encrypted = text;
                     // server decrypting data with private key                    
-                    //rsa.FromXmlString(key);
-                    rsa.FromXmlString("<RSAKeyValue><Modulus>12345</Modulus><Exponent>6789</Exponent></RSAKeyValue>"); // xml formatted publickey);
-                    var resultBytes = Convert.FromBase64String(base64Encrypted);
-                    var decryptedBytes = rsa.Decrypt(resultBytes, true);
-                    return Encoding.UTF8.GetString(decryptedBytes).ToString();
+                    rsa.FromXmlString(privateKeyString);
+                    var decryptedBytes = rsa.Decrypt(data, false);
+                    var decryptedData = Encoding.UTF8.GetString(decryptedBytes);
+                    return decryptedData.ToString();
                 }
                 catch (Exception)
                 {
@@ -79,13 +84,21 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 }
                 finally
                 {
-                    rsa.PersistKeyInCsp = false;
+                   // rsa.PersistKeyInCsp = false;
                 }
             }
         }
         #endregion "PublicMethods"
 
         #region "Helper"
+        private static string GetKeyString(RSAParameters publicKey)
+        {
+
+            var stringWriter = new System.IO.StringWriter();
+            var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+            xmlSerializer.Serialize(stringWriter, publicKey);
+            return stringWriter.ToString();
+        }
 
         #endregion "Helper"
     }
