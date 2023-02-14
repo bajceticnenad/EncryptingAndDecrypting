@@ -61,16 +61,14 @@ namespace EncryptingAndDecrypting
             {
                 case EncryptionType.AES:
                     return new AESEncryptionFactory().GetEncryptionProduct();
-                    //break;
                 case EncryptionType.DES:
                     return new DESEncryptionFactory().GetEncryptionProduct();
-                //break;
                 case EncryptionType.RSA:
                     return new RSAEncryptionFactory().GetEncryptionProduct();
-                //break;
+                case EncryptionType.TripleDES:
+                    return new TripleDESEncryptionFactory().GetEncryptionProduct();
                 default:
                     return null;
-                    //break;
             }
         }
         #endregion "PrivateMethods"

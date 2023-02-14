@@ -8,6 +8,7 @@ namespace EncryptingAndDecrypting.Enums
     {
         AES,
         DES,
-        RSA
+        RSA,
+        TripleDES
     }
 }
