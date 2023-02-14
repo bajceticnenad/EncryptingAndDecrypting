@@ -1,5 +1,5 @@
 # EncryptingAndDecrypting
-Nuget (C# library) for Encrypting and Decrypting based on AES. RSA, DES encryption
+Nuget (C# library) for Encrypting and Decrypting based on AES, Triple DES, DES encryption
 
 ## Example
 
