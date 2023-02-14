@@ -24,7 +24,7 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
         #region "PublicConstructor"
         public RSAEncryptionProduct()
         {
-            _encryptionType = EncryptionType.RSA;
+            //_encryptionType = EncryptionType.RSA;
             _cryptoServiceProvider = new RSACryptoServiceProvider(2048);
             _publicKey = _cryptoServiceProvider.ExportParameters(false);
             _privateKey = _cryptoServiceProvider.ExportParameters(true);
