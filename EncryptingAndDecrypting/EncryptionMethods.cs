@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using EncryptingAndDecrypting.Encription;
+using EncryptingAndDecrypting.Creator.ConcreteCreator;
+using EncryptingAndDecrypting.Enums;
+using EncryptingAndDecrypting.Product;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EncryptingAndDecrypting
 {
@@ -28,13 +31,46 @@ namespace EncryptingAndDecrypting
             }
         }
 
-        public string AES_Encrypt(string text, string key)
+        public string Encrypt(EncryptionType encryptionType, string text, string key)
         {
-            return AESEncryption.Encrypt(text, key);
+            try
+            {
+                return GetConcreteProduct(encryptionType).Encrypt(text, key);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
-        public string AES_Decrypt(string text, string key)
+        public string Decrypt(EncryptionType encryptionType, string text, string key)
+        {       
+            try
+            {
+                return GetConcreteProduct(encryptionType).Decrypt(text, key);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #region "PrivateMethods"
+        private EncryptionProduct GetConcreteProduct(EncryptionType encryptionType)
         {
-            return AESEncryption.Decrypt(text, key);
+            switch (encryptionType)
+            {
+                case EncryptionType.AES:
+                    return new AESEncryptionFactory().GetEncryptionProduct();
+                case EncryptionType.DES:
+                    return new DESEncryptionFactory().GetEncryptionProduct();
+                //case EncryptionType.RSA:
+                //    return new RSAEncryptionFactory().GetEncryptionProduct();
+                case EncryptionType.TripleDES:
+                    return new TripleDESEncryptionFactory().GetEncryptionProduct();
+                default:
+                    return null;
+            }
         }
+        #endregion "PrivateMethods"
     }
 }
