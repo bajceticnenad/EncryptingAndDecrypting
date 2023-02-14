@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.Linq;
 
 namespace EncryptingAndDecrypting.Product.ConcreteProducts
 {
@@ -43,6 +44,8 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
 
             try
             {
+                if (key.Length < 8)
+                    key = key.PadRight(8, '#');
                 encryptionKey = Encoding.UTF8.GetBytes(key);
                 // DESCryptoServiceProvider is a cryptography class defind in c#.  
                 DESCryptoServiceProvider ObjDES = new DESCryptoServiceProvider();
@@ -67,6 +70,8 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
 
             try
             {
+                if (key.Length < 8)
+                    key = key.PadRight(8, '#');
                 encryptionKey = Encoding.UTF8.GetBytes(key);
                 DESCryptoServiceProvider ObjDES = new DESCryptoServiceProvider();
                 inputByteArray = Convert.FromBase64String(text);

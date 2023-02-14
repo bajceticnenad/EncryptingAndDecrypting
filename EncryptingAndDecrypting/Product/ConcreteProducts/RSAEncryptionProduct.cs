@@ -41,10 +41,15 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
             {
                 try
                 {
-                    // client encrypting data with public key issued by server                    
-                    rsa.FromXmlString(key);
+                    // client encrypting data with public key issued by server
+                    //rsa.FromXmlString(key);
+                    rsa.FromXmlString("<RSAKeyValue><Modulus>12345</Modulus><Exponent>6789</Exponent></RSAKeyValue>"); // xml formatted publickey);
                     var encryptedData = rsa.Encrypt(data, true);
                     return Convert.ToBase64String(encryptedData);
+                }
+                catch (Exception)
+                {
+                    throw;
                 }
                 finally
                 {
@@ -62,10 +67,15 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
                 {
                     var base64Encrypted = text;
                     // server decrypting data with private key                    
-                    rsa.FromXmlString(key);
+                    //rsa.FromXmlString(key);
+                    rsa.FromXmlString("<RSAKeyValue><Modulus>12345</Modulus><Exponent>6789</Exponent></RSAKeyValue>"); // xml formatted publickey);
                     var resultBytes = Convert.FromBase64String(base64Encrypted);
                     var decryptedBytes = rsa.Decrypt(resultBytes, true);
                     return Encoding.UTF8.GetString(decryptedBytes).ToString();
+                }
+                catch (Exception)
+                {
+                    throw;
                 }
                 finally
                 {
@@ -75,5 +85,8 @@ namespace EncryptingAndDecrypting.Product.ConcreteProducts
         }
         #endregion "PublicMethods"
 
+        #region "Helper"
+
+        #endregion "Helper"
     }
 }
