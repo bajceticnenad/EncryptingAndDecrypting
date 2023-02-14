@@ -63,8 +63,8 @@ namespace EncryptingAndDecrypting
                     return new AESEncryptionFactory().GetEncryptionProduct();
                 case EncryptionType.DES:
                     return new DESEncryptionFactory().GetEncryptionProduct();
-                case EncryptionType.RSA:
-                    return new RSAEncryptionFactory().GetEncryptionProduct();
+                //case EncryptionType.RSA:
+                //    return new RSAEncryptionFactory().GetEncryptionProduct();
                 case EncryptionType.TripleDES:
                     return new TripleDESEncryptionFactory().GetEncryptionProduct();
                 default:
