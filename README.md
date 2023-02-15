@@ -7,8 +7,8 @@ Nuget (C# library) for Encrypting and Decrypting based on AES, Triple DES, DES e
        public void EncryptionTest()
         {
             var str = "TestString";
-            var encrypt = EncryptionMethods.Instance.AES_Encrypt(str, "123");
-            var decrypt = EncryptionMethods.Instance.AES_Decrypt(encrypt, "123");
+            var encrypt = EncryptionMethods.Instance.AES_Encrypt(EncryptingAndDecrypting.Enums.EncryptionType.AES, str, "123");
+            var decrypt = EncryptionMethods.Instance.AES_Decrypt(EncryptingAndDecrypting.Enums.EncryptionType.AES, encrypt, "123");
 
         }
 ```
